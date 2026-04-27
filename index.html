@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Brasa de Cal Petit — Restaurante Mediterráneo en Barcelona</title>
+  <meta name="description" content="Restaurante mediterráneo familiar en el corazón de Barcelona. Cocina de temporada, arroces, brasa y mucho amor. Reserva tu mesa hoy.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Supabase JS via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Hojas de estilo -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ========================================================
+       NAVBAR
+       ======================================================== -->
+  <header class="navbar" id="navbar">
+    <div class="navbar__container">
+      <a href="#inicio" class="navbar__logo">
+        <span class="navbar__logo-main">La Brasa</span>
+        <span class="navbar__logo-sub">de Cal Petit</span>
+      </a>
+
+      <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="navbar__nav" id="navMenu" aria-label="Navegación principal">
+        <ul class="navbar__list">
+          <li><a href="#inicio"    class="navbar__link">Inicio</a></li>
+          <li><a href="#nosotros"  class="navbar__link">Nosotros</a></li>
+          <li><a href="#carta"     class="navbar__link">La Carta</a></li>
+          <li><a href="#reservas"  class="navbar__link">Reservas</a></li>
+          <li><a href="#contacto"  class="navbar__link">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ========================================================
+         HERO
+         ======================================================== -->
+    <section class="hero" id="inicio">
+      <div class="hero__overlay" aria-hidden="true"></div>
+      <div class="hero__content">
+        <p class="hero__tagline">Cuina mediterrània de casa</p>
+        <h1 class="hero__title">La Brasa<br><span>de Cal Petit</span></h1>
+        <p class="hero__subtitle">Sabores honestos, mesa compartida y el alma de Barcelona en cada plato.</p>
+        <div class="hero__actions">
+          <a href="#reservas" class="btn btn--primary">Reserva tu mesa</a>
+          <a href="#carta"    class="btn btn--outline">Ver la carta</a>
+        </div>
+      </div>
+      <div class="hero__scroll-hint" aria-hidden="true">
+        <span>Descubre más</span>
+        <div class="hero__scroll-arrow"></div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         NOSOTROS
+         ======================================================== -->
+    <section class="nosotros section" id="nosotros">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="section__label">Nuestra historia</span>
+          <h2 class="section__title">Tres generaciones de fuego y sabor</h2>
+        </div>
+
+        <div class="nosotros__grid">
+          <div class="nosotros__text reveal">
+            <p class="nosotros__lead">
+              Todo empezó en 1978 cuando el abuelo Miquel Petit encendió por primera vez la brasa en un pequeño local del Born. Con las manos curtidas y una receta de arròs negre heredada de su madre, convirtió aquel rincón en el lugar de encuentro del barrio.
+            </p>
+            <p>
+              Hoy, su nieta Clara lleva las riendas de la cocina con el mismo respeto por los ingredientes de temporada y el producto local. Trabajamos con pescadores de la Barceloneta, verduras del Maresme y carnes de payés del Penedès.
+            </p>
+            <p>
+              En La Brasa de Cal Petit no encontrarás cocina de fusión ni tendencias pasajeras. Encontrarás el plato que te prepararía tu madre si tu madre cocinara de maravilla.
+            </p>
+            <div class="nosotros__stats">
+              <div class="stat">
+                <span class="stat__number">46</span>
+                <span class="stat__label">años de historia</span>
+              </div>
+              <div class="stat">
+                <span class="stat__number">3</span>
+                <span class="stat__label">generaciones</span>
+              </div>
+              <div class="stat">
+                <span class="stat__number">100%</span>
+                <span class="stat__label">producto local</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="nosotros__image-col reveal">
+            <!-- Sustituir por <img src="assets/img/restaurante.jpg" alt="Interior del restaurante"> -->
+            <div class="nosotros__img-placeholder">
+              <div class="nosotjos__img-inner">
+                <span>📷</span>
+                <p>Foto del restaurante</p>
+                <small>Añade tus imágenes en assets/img/</small>
+              </div>
+            </div>
+            <div class="nosotros__badge">
+              <span>Fundado en</span>
+              <strong>1978</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         CARTA
+         ======================================================== -->
+    <section class="carta section section--alt" id="carta">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="section__label">De temporada</span>
+          <h2 class="section__title">La Carta</h2>
+          <p class="section__desc">Platos elaborados con ingredientes frescos y de proximidad. La carta cambia con las estaciones.</p>
+        </div>
+
+        <!-- Filtros de categoría -->
+        <div class="carta__filtros reveal" role="group" aria-label="Filtrar por categoría">
+          <button class="filtro-btn filtro-btn--active" data-categoria="todos">Todos</button>
+          <button class="filtro-btn" data-categoria="entrantes">Entrantes</button>
+          <button class="filtro-btn" data-categoria="principales">Principales</button>
+          <button class="filtro-btn" data-categoria="postres">Postres</button>
+        </div>
+
+        <!-- Grid de platos -->
+        <div class="carta__grid" id="cartaGrid">
+
+          <!-- ---- ENTRANTES ---- -->
+          <article class="plato-card reveal" data-categoria="entrantes">
+            <div class="plato-card__categoria">Entrante</div>
+            <h3 class="plato-card__nombre">Pa amb tomàquet i pernil ibèric</h3>
+            <p class="plato-card__desc">Pan de payés tostado, tomate de colgar de Prades y pernil ibèric de bellota en lonchas finas. El clásico de todos los clásicos.</p>
+            <div class="plato-card__footer">
+              <span class="plato-card__precio">8 €</span>
+              <span class="plato-card__tag">Clásico</span>
+            </div>
+          </article>
+
+          <article class="plato-card reveal" data-categoria="entrantes">
+            <div class="plato-card__categoria">Entrante</div>
+            <h3 class="plato-card__nombre">Croquetes de bacallà de la iaia</h3>
+            <p class="plato-card__desc">Croquetas cremosas de bacalao con bechamel de leche fresca y un toque de ajo negro. Receta de la abuela, intacta desde 1978.</p>
+            <div class="plato-card__footer">
+              <span class="plato-card__precio">9 €</span>
+              <span class="plato-card__tag">Estrella</span>
+            </div>
+          </article>
+
+          <article class="plato-card reveal" data-categoria="entrantes">
+            <div class="plato-card__categoria">Entrante</div>
+            <h3 class="plato-card__nombre">Amanida de cabra gratinada amb mel</h3>
+            <p class="plato-card__desc">Ensalada de brotes tiernos, remolacha asada, nueces y rulo de cabra gratinado con miel artesanal del Garraf.</p>
+            <div class="plato-card__footer">
+              <span class="plato-card__precio">11 €</span>
+              <span class="plato-card__tag">Vegetariano</span>
+            </div>
+          </article>
+
+          <article class="plato-card reveal" data-categoria="entrantes">
+            <div class="plato-card__categoria">Entrante</div>
+            <h3 class="plato-card__nombre">Anxoves del Cantàbric amb mantequilla</h3>
+            <p class="plato-card__desc">Anchoas 00 del Cantábrico sobre tosta de pan de masa madre con mantequilla normanda y cebollino fresco cortado al momento.</p>
+            <div class="plato-card__footer">
+              <span class="plato-card__precio">13 €</span>
+              <span class="plato-card__tag">Premium</span>
+            </div>
+          </article>
+
+          <article class="plato-card reveal" data-categoria="entrantes">
+            <div class="plato-card__categoria">Entrante</div>
+            <h3 class="plato-card__nombre">Escalivada amb romesco de la casa</h3>
+            <p class="plato-card__desc">Pimientos y berenjenas asados a la brasa de encina, aliñados con aceite de oliva virgen extra y salsa romesco casera de avellanas.</p>
+            <div class="plato-card__footer">
+              <span class="plato-card__precio">10 €</span>
+              <span class="plato-card__tag">Vegano</span>
+            </div>
+          </article>
+
+          <!-- ---- PRINCIPALES ---- -->
+          <article class="plato-card reveal" data-categoria="principales">
+            <div class="plato-card__categoria">Principal</div>
+            <h3 class="plato-card__nombre">Arròs negre amb alioli de l'avi</h3>
+            <p class="plato-card__desc">Arroz negro con sepia y gambas del día, cocinado en caldo de pescado de roca. Servido con el alioli de la casa, receta del abuelo Miquel.</p>
+            <div class="plato-card__footer">
+              <span class="plato-card__precio">18 €</span>
+              <span class="plato-card__tag">Estrella</span>
+            </div>
+          </article>
+
+          <article class="plato-card reveal" data-categoria="principales">
+            <div class="plato-card__categoria">Principal</div>
+            <h3 class="plato-card__nombre">Fideuà de marisc de la Costa</h3>
+            <p class="plato-card__desc">Fideos finos socarrats con calamar, mejillones de roca, gambas y cigalas. Fondo casero de crustáceos elaborado cada mañana.</p>
+            <div class="plato-card__footer">
+              <span class="plato-card__precio">20 €</span>
+              <span class="plato-card__tag">Recomendado</span>
+            </div>
+          </article>
+
+          <article class="plato-card reveal" data-categoria="principales">
+            <div class="plato-card__categoria">Principal</div>
+            <h3 class="plato-card__nombre">Lluç de la Barceloneta a la planxa</h3>
+            <p class="plato-card__desc">Merluza fresca del día a la plancha con verduras de temporada salteadas, picada de ajo y perejil y un hilo de aceite virgen extra.</p>
+            <div class="plato-card__footer">
+              <span class="plato-card__precio">22 €</span>
+              <span class="plato-card__tag">Del día</span>
+            </div>
+          </article>
+
+          <article class="plato-card reveal" data-categoria="principales">
+            <div class="plato-card__categoria">Principal</div>
+            <h3 class="plato-card__nombre">Pollastre de pagès al forn</h3>
+            <p class="plato-card__desc">Pollo de payés asado lentamente con hierbas del Mediterráneo, patatas panaderas y ajos confitados al romero y tomillo.</p>
+            <div class="plato-card__footer">
+              <span class="plato-card__precio">19 €</span>
+              <span class="plato-card__tag">Casero</span>
+            </div>
+          </article>
+
+          <article class="plato-card reveal" data-categoria="principales">
+            <div class="plato-card__categoria">Principal</div>
+            <h3 class="plato-card__nombre">Costella de vedella a la brasa</h3>
+            <p class="plato-card__desc">Costilla de ternera madurada 30 días a la brasa de encina, con chimichurri de hierbas frescas y patata rústica con piel.</p>
+            <div class="plato-card__footer">
+              <span class="plato-card__precio">26 €</span>
+              <span class="plato-card__tag">Brasa</span>
+            </div>
+          </article>
+
+          <article class="plato-card reveal" data-categoria="principales">
+            <div class="plato-card__categoria">Principal</div>
+            <h3 class="plato-card__nombre">Canelons de festa major</h3>
+            <p class="plato-card__desc">Canelones rellenos de carne estofada con bechamel trufada, gratinados al horno. Receta de fiesta mayor, solo disponibles el fin de semana.</p>
+            <div class="plato-card__footer">
+              <span class="plato-card__precio">17 €</span>
+              <span class="plato-card__tag">Fin de semana</span>
+            </div>
+          </article>
+
+          <!-- ---- POSTRES ---- -->
+          <article class="plato-card reveal" data-categoria="postres">
+            <div class="plato-card__categoria">Postre</div>
+            <h3 class="plato-card__nombre">Crema catalana casolana</h3>
+            <p class="plato-card__desc">Crema catalana tradicional con canela y piel de naranja, quemada al momento con azúcar moreno de caña. Cremosa y ligera.</p>
+            <div class="plato-card__footer">
+              <span class="plato-card__precio">6 €</span>
+              <span class="plato-card__tag">Clásico</span>
+            </div>
+          </article>
+
+          <article class="plato-card reveal" data-categoria="postres">
+            <div class="plato-card__categoria">Postre</div>
+            <h3 class="plato-card__nombre">Tarta de llimona i merenga</h3>
+            <p class="plato-card__desc">Tarta con base de galleta de mantequilla, crema de limón del Maresme y merengue italiano tostado al soplete en el momento.</p>
+            <div class="plato-card__footer">
+              <span class="plato-card__precio">7 €</span>
+              <span class="plato-card__tag">Estrella</span>
+            </div>
+          </article>
+
+          <article class="plato-card reveal" data-categoria="postres">
+            <div class="plato-card__categoria">Postre</div>
+            <h3 class="plato-card__nombre">Gelat de torró artesanal</h3>
+            <p class="plato-card__desc">Helado artesanal de turrón de Agramunt con almendras enteras tostadas. Servido con un hilo de aceite de oliva arbequina y sal Maldon.</p>
+            <div class="plato-card__footer">
+              <span class="plato-card__precio">5 €</span>
+              <span class="plato-card__tag">Artesanal</span>
+            </div>
+          </article>
+
+          <article class="plato-card reveal" data-categoria="postres">
+            <div class="plato-card__categoria">Postre</div>
+            <h3 class="plato-card__nombre">Figues amb formatge i mel de Garraf</h3>
+            <p class="plato-card__desc">Higos frescos de temporada con queso de oveja curado del Berguedà, nueces tostadas y miel de la Reserva del Garraf.</p>
+            <div class="plato-card__footer">
+              <span class="plato-card__precio">8 €</span>
+              <span class="plato-card__tag">Temporada</span>
+            </div>
+          </article>
+
+        </div><!-- /carta__grid -->
+      </div>
+    </section>
+
+    <!-- ========================================================
+         RESERVAS
+         ======================================================== -->
+    <section class="reservas section" id="reservas">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="section__label">¿Nos visitas?</span>
+          <h2 class="section__title">Reserva tu mesa</h2>
+          <p class="section__desc">Rellena el formulario y te confirmaremos la reserva por email. Para grupos de más de 10 personas, llámanos directamente.</p>
+        </div>
+
+        <div class="reservas__wrapper reveal">
+
+          <!-- Mensaje de éxito (oculto por defecto) -->
+          <div class="reservas__mensaje reservas__mensaje--exito" id="mensajeExito" role="alert" aria-live="polite" hidden>
+            <div class="mensaje__icono" aria-hidden="true">✓</div>
+            <div class="mensaje__texto">
+              <strong>¡Reserva recibida!</strong>
+              <p>Nos pondremos en contacto contigo para confirmarla. ¡Te esperamos en Cal Petit!</p>
+            </div>
+          </div>
+
+          <!-- Mensaje de error (oculto por defecto) -->
+          <div class="reservas__mensaje reservas__mensaje--error" id="mensajeError" role="alert" aria-live="polite" hidden>
+            <div class="mensaje__icono" aria-hidden="true">!</div>
+            <div class="mensaje__texto">
+              <strong>Algo no ha ido bien</strong>
+              <p>No hemos podido procesar tu reserva. Por favor, llámanos al <a href="tel:+34601313331">601 313 331</a> y te ayudamos enseguida.</p>
+            </div>
+          </div>
+
+          <form class="reservas__form" id="reservasForm" novalidate>
+            <div class="form__row form__row--2">
+              <div class="form__group">
+                <label class="form__label" for="nombre">Nombre completo <span class="form__required" aria-label="obligatorio">*</span></label>
+                <input class="form__input" type="text" id="nombre" name="nombre"
+                  placeholder="Ej. Maria García López" required autocomplete="name">
+                <span class="form__error" id="errorNombre" role="alert"></span>
+              </div>
+              <div class="form__group">
+                <label class="form__label" for="telefono">Teléfono <span class="form__required" aria-label="obligatorio">*</span></label>
+                <input class="form__input" type="tel" id="telefono" name="telefono"
+                  placeholder="Ej. 612 345 678" required autocomplete="tel">
+                <span class="form__error" id="errorTelefono" role="alert"></span>
+              </div>
+            </div>
+
+            <div class="form__group">
+              <label class="form__label" for="email">Correo electrónico <span class="form__required" aria-label="obligatorio">*</span></label>
+              <input class="form__input" type="email" id="email" name="email"
+                placeholder="Ej. maria@correo.com" required autocomplete="email">
+              <span class="form__error" id="errorEmail" role="alert"></span>
+            </div>
+
+            <div class="form__row form__row--3">
+              <div class="form__group">
+                <label class="form__label" for="fecha">Fecha <span class="form__required" aria-label="obligatorio">*</span></label>
+                <input class="form__input" type="date" id="fecha" name="fecha" required>
+                <span class="form__error" id="errorFecha" role="alert"></span>
+              </div>
+              <div class="form__group">
+                <label class="form__label" for="hora">Hora <span class="form__required" aria-label="obligatorio">*</span></label>
+                <select class="form__select" id="hora" name="hora" required>
+                  <option value="">Selecciona hora</option>
+                  <optgroup label="Mediodía">
+                    <option value="13:00">13:00</option>
+                    <option value="13:30">13:30</option>
+                    <option value="14:00">14:00</option>
+                    <option value="14:30">14:30</option>
+                    <option value="15:00">15:00</option>
+                    <option value="15:30">15:30</option>
+                  </optgroup>
+                  <optgroup label="Noche">
+                    <option value="20:00">20:00</option>
+                    <option value="20:30">20:30</option>
+                    <option value="21:00">21:00</option>
+                    <option value="21:30">21:30</option>
+                    <option value="22:00">22:00</option>
+                    <option value="22:30">22:30</option>
+                    <option value="23:00">23:00</option>
+                  </optgroup>
+                </select>
+                <span class="form__error" id="errorHora" role="alert"></span>
+              </div>
+              <div class="form__group">
+                <label class="form__label" for="personas">Personas <span class="form__required" aria-label="obligatorio">*</span></label>
+                <select class="form__select" id="personas" name="personas" required>
+                  <option value="">Nº personas</option>
+                  <option value="1">1 persona</option>
+                  <option value="2">2 personas</option>
+                  <option value="3">3 personas</option>
+                  <option value="4">4 personas</option>
+                  <option value="5">5 personas</option>
+                  <option value="6">6 personas</option>
+                  <option value="7">7 personas</option>
+                  <option value="8">8 personas</option>
+                  <option value="9">9 personas</option>
+                  <option value="10">10 personas</option>
+                </select>
+                <span class="form__error" id="errorPersonas" role="alert"></span>
+              </div>
+            </div>
+
+            <div class="form__group">
+              <label class="form__label" for="notas">Notas o peticiones especiales <span class="form__optional">(opcional)</span></label>
+              <textarea class="form__textarea" id="notas" name="notas" rows="3"
+                placeholder="Alergias, celebraciones especiales, silla para bebé, etc."></textarea>
+            </div>
+
+            <div class="form__footer">
+              <p class="form__privacidad">Al enviar este formulario aceptas que guardemos tus datos para gestionar la reserva.</p>
+              <button class="btn btn--primary btn--large" type="submit" id="btnEnviar">
+                <span class="btn__text">Confirmar reserva</span>
+                <span class="btn__loading" hidden>Enviando…</span>
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         CONTACTO
+         ======================================================== -->
+    <section class="contacto section section--alt" id="contacto">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="section__label">Encuéntranos</span>
+          <h2 class="section__title">Contacto</h2>
+        </div>
+
+        <div class="contacto__grid">
+          <div class="contacto__info reveal">
+            <div class="contacto__item">
+              <div class="contacto__icono" aria-hidden="true">📍</div>
+              <div>
+                <h3 class="contacto__label">Dirección</h3>
+                <p>Carrer de la Ribera, 42<br>08003 Barcelona (El Born)</p>
+              </div>
+            </div>
+            <div class="contacto__item">
+              <div class="contacto__icono" aria-hidden="true">📞</div>
+              <div>
+                <h3 class="contacto__label">Teléfono</h3>
+                <p><a href="tel:+34932001234">93 200 12 34</a></p>
+                <p><a href="tel:+34612345678">612 345 678</a></p>
+              </div>
+            </div>
+            <div class="contacto__item">
+              <div class="contacto__icono" aria-hidden="true">✉️</div>
+              <div>
+                <h3 class="contacto__label">Email</h3>
+                <p><a href="mailto:hola@labrasacalpetit.cat">hola@labrasacalpetit.cat</a></p>
+              </div>
+            </div>
+            <div class="contacto__item">
+              <div class="contacto__icono" aria-hidden="true">🕐</div>
+              <div>
+                <h3 class="contacto__label">Horarios</h3>
+                <table class="horarios">
+                  <tbody>
+                    <tr><td>Lunes</td><td>Cerrado</td></tr>
+                    <tr><td>Martes – Viernes</td><td>13:00–16:00 · 20:00–23:30</td></tr>
+                    <tr><td>Sábado</td><td>13:00–16:30 · 20:00–00:00</td></tr>
+                    <tr><td>Domingo</td><td>13:00–16:30</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="contacto__mapa reveal">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2993.7562959065485!2d2.178944315521946!3d41.38507197926364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a2dc8e3a1b77%3A0x3e3e3e3e3e3e3e3e!2sEl%20Born%2C%20Barcelona!5e0!3m2!1ses!2ses!4v1700000000000!5m2!1ses!2ses"
+              width="100%"
+              height="420"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Ubicación de La Brasa de Cal Petit — El Born, Barcelona">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================
+       FOOTER
+       ======================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <p class="footer__logo">La Brasa <span>de Cal Petit</span></p>
+          <p class="footer__tagline">Cuina mediterrània de casa des de 1978.</p>
+        </div>
+
+        <div class="footer__links">
+          <h4>Navegación</h4>
+          <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#carta">La Carta</a></li>
+            <li><a href="#reservas">Reservas</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__social">
+          <h4>Síguenos</h4>
+          <div class="footer__social-links">
+            <a href="#" class="social-link" aria-label="Instagram de La Brasa de Cal Petit">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="Facebook de La Brasa de Cal Petit">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="TripAdvisor de La Brasa de Cal Petit">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+            </a>
+          </div>
+          <p class="footer__social-handle">@labrasacalpetit</p>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>© 2024 La Brasa de Cal Petit. Todos los derechos reservados.</p>
+        <p>Carrer de la Ribera, 42 · 08003 Barcelona</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts (orden importante: supabase primero) -->
+  <script src="js/supabase.js"></script>
+  <script src="js/reservas.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>

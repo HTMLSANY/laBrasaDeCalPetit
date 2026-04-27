@@ -1,0 +1,376 @@
+/* ================================================================
+   COMPONENTS.CSS — Botones, filtros, tarjetas, formulario y mensajes
+   La Brasa de Cal Petit
+   ================================================================ */
+
+/* ----------------------------------------------------------------
+   BOTONES
+   ---------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: var(--radio-full);
+  font-family: var(--fuente-texto);
+  font-size: var(--size-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition:
+    background-color var(--trans-rapida),
+    color            var(--trans-rapida),
+    border-color     var(--trans-rapida),
+    transform        var(--trans-rapida),
+    box-shadow       var(--trans-rapida);
+  white-space: nowrap;
+}
+
+.btn:hover  { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+.btn--primary {
+  background-color: var(--color-primario);
+  color: var(--color-blanco);
+  border-color: var(--color-primario);
+}
+.btn--primary:hover {
+  background-color: var(--color-primario-dark);
+  border-color: var(--color-primario-dark);
+  color: var(--color-blanco);
+  box-shadow: 0 6px 20px rgba(201, 145, 58, 0.4);
+}
+
+.btn--outline {
+  background-color: transparent;
+  color: var(--color-blanco);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+.btn--outline:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-blanco);
+  color: var(--color-blanco);
+}
+
+.btn--large {
+  padding: 16px 40px;
+  font-size: var(--size-base);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ----------------------------------------------------------------
+   FILTROS DE CARTA
+   ---------------------------------------------------------------- */
+.filtro-btn {
+  padding: 10px 24px;
+  border-radius: var(--radio-full);
+  border: 2px solid var(--color-borde-dark);
+  background-color: transparent;
+  color: var(--color-texto-suave);
+  font-size: var(--size-sm);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background-color var(--trans-rapida), color var(--trans-rapida), border-color var(--trans-rapida);
+}
+.filtro-btn:hover {
+  border-color: var(--color-primario);
+  color: var(--color-primario);
+}
+.filtro-btn--active {
+  background-color: var(--color-primario);
+  border-color: var(--color-primario);
+  color: var(--color-blanco);
+}
+
+/* ----------------------------------------------------------------
+   TARJETAS DE PLATO
+   ---------------------------------------------------------------- */
+.plato-card {
+  background-color: var(--color-blanco);
+  border-radius: var(--radio-lg);
+  padding: var(--espacio-md);
+  border: 1px solid var(--color-borde);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--trans-normal), box-shadow var(--trans-normal);
+}
+
+/* Borde superior dorado al hacer hover */
+.plato-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primario), var(--color-tierra-light));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--trans-normal);
+}
+
+.plato-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-lg);
+}
+.plato-card:hover::before { transform: scaleX(1); }
+
+/* Clase añadida por menu.js al filtrar */
+.plato-card--oculto { display: none; }
+
+.plato-card__categoria {
+  font-size: var(--size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-primario);
+  margin-bottom: var(--espacio-xs);
+}
+
+.plato-card__nombre {
+  font-size: var(--size-md);
+  font-weight: 600;
+  color: var(--color-texto);
+  margin-bottom: var(--espacio-xs);
+  line-height: 1.3;
+}
+
+.plato-card__desc {
+  font-size: var(--size-sm);
+  color: var(--color-texto-suave);
+  line-height: 1.6;
+  flex: 1;
+  margin-bottom: var(--espacio-sm);
+}
+
+.plato-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--espacio-sm);
+  border-top: 1px solid var(--color-borde);
+  margin-top: auto;
+}
+
+.plato-card__precio {
+  font-family: var(--fuente-titulo);
+  font-size: var(--size-xl);
+  font-weight: 700;
+  color: var(--color-primario-dark);
+}
+
+.plato-card__tag {
+  font-size: var(--size-xs);
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--radio-full);
+  background-color: var(--color-fondo-alt);
+  color: var(--color-texto-suave);
+  letter-spacing: 0.05em;
+}
+
+/* ----------------------------------------------------------------
+   FORMULARIO DE RESERVAS
+   ---------------------------------------------------------------- */
+.reservas__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-md);
+}
+
+.form__row {
+  display: grid;
+  gap: var(--espacio-md);
+}
+.form__row--2 { grid-template-columns: 1fr 1fr; }
+.form__row--3 { grid-template-columns: 1fr; } /* expande en responsive.css */
+
+.form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form__label {
+  font-size: var(--size-sm);
+  font-weight: 700;
+  color: var(--color-texto);
+}
+
+.form__required { color: var(--color-primario); }
+
+.form__optional {
+  font-weight: 400;
+  color: var(--color-texto-muy-suave);
+  font-size: var(--size-xs);
+}
+
+.form__input,
+.form__select,
+.form__textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-md);
+  background-color: var(--color-blanco);
+  color: var(--color-texto);
+  font-size: var(--size-base);
+  transition: border-color var(--trans-rapida), box-shadow var(--trans-rapida);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.form__input::placeholder,
+.form__textarea::placeholder { color: var(--color-texto-muy-suave); }
+
+.form__input:focus,
+.form__select:focus,
+.form__textarea:focus {
+  outline: none;
+  border-color: var(--color-primario);
+  box-shadow: 0 0 0 3px rgba(201, 145, 58, 0.15);
+}
+
+/* Estados de error en campo */
+.form__input--error,
+.form__select--error,
+.form__textarea--error {
+  border-color: var(--color-error);
+}
+.form__input--error:focus,
+.form__select--error:focus,
+.form__textarea--error:focus {
+  box-shadow: 0 0 0 3px rgba(155, 35, 53, 0.15);
+}
+
+/* Select con flecha personalizada */
+.form__select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23A08468' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 44px;
+  cursor: pointer;
+}
+
+.form__textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form__error {
+  font-size: var(--size-xs);
+  color: var(--color-error);
+  font-weight: 700;
+  min-height: 1em;
+}
+
+.form__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espacio-sm);
+  padding-top: var(--espacio-xs);
+}
+
+.form__privacidad {
+  font-size: var(--size-xs);
+  color: var(--color-texto-muy-suave);
+  margin-bottom: 0;
+}
+
+/* ----------------------------------------------------------------
+   MENSAJES DE RESULTADO DE RESERVA
+   ---------------------------------------------------------------- */
+/* El atributo hidden debe prevalecer sobre display:flex */
+.reservas__mensaje[hidden] { display: none; }
+
+.reservas__mensaje {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--espacio-sm);
+  padding: var(--espacio-md);
+  border-radius: var(--radio-lg);
+  margin-bottom: var(--espacio-lg);
+  animation: mensajeFadeIn 0.4s ease;
+}
+
+@keyframes mensajeFadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reservas__mensaje--exito {
+  background-color: rgba(74, 124, 89, 0.08);
+  border: 2px solid rgba(74, 124, 89, 0.3);
+  color: var(--color-exito);
+}
+.reservas__mensaje--error {
+  background-color: rgba(155, 35, 53, 0.07);
+  border: 2px solid rgba(155, 35, 53, 0.25);
+  color: var(--color-error);
+}
+
+.mensaje__icono {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--size-base);
+  font-weight: 900;
+}
+.reservas__mensaje--exito .mensaje__icono {
+  background-color: var(--color-exito);
+  color: var(--color-blanco);
+}
+.reservas__mensaje--error .mensaje__icono {
+  background-color: var(--color-error);
+  color: var(--color-blanco);
+}
+
+.mensaje__texto strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: var(--size-base);
+}
+.mensaje__texto p   { font-size: var(--size-sm); margin-bottom: 0; }
+.mensaje__texto a   { color: inherit; text-decoration: underline; }
+
+/* ----------------------------------------------------------------
+   REDES SOCIALES
+   ---------------------------------------------------------------- */
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.65);
+  transition: color var(--trans-rapida), border-color var(--trans-rapida), background-color var(--trans-rapida);
+}
+.social-link:hover {
+  color: var(--color-primario-light);
+  border-color: var(--color-primario-light);
+  background-color: rgba(201, 145, 58, 0.1);
+}
+.social-link svg {
+  width: 18px;
+  height: 18px;
+}

@@ -1,0 +1,189 @@
+/* ================================================================
+   MAIN.CSS — Variables CSS, reset, tipografía y utilidades base
+   Restaurant Can Sardà · Cerdanyola del Vallès
+   ================================================================ */
+
+/* ----------------------------------------------------------------
+   VARIABLES CSS
+   ---------------------------------------------------------------- */
+:root {
+  /* PALETA PRINCIPAL — rojo brasa y ámbar */
+  --color-primario:       #C0392B;   /* rojo brasa / fuego */
+  --color-primario-dark:  #96251E;   /* rojo oscuro */
+  --color-primario-light: #D9554A;   /* rojo claro */
+
+  /* Ámbar / dorado como acento secundario */
+  --color-tierra:         #C9913A;   /* dorado cálido — mantener nombre para compatibilidad */
+  --color-tierra-light:   #E8B96A;   /* dorado claro */
+  --color-oliva:          #8B6914;
+  --color-oliva-light:    #B8960C;
+
+  /* FONDOS OSCUROS */
+  --color-fondo:          #1A1108;   /* negro carbón — fondo base */
+  --color-fondo-alt:      #2B1A0E;   /* marrón muy oscuro — secciones alternas */
+  --color-fondo-card:     #2D1D10;   /* tarjetas, inputs, formulario */
+  --color-fondo-dark:     #0F0904;   /* footer */
+
+  /* TEXTOS — claros sobre oscuro */
+  --color-texto:          #F5EFE0;   /* blanco roto — texto principal */
+  --color-texto-suave:    #C4B49A;   /* beige suave — texto secundario */
+  --color-texto-muy-suave:#8A7560;   /* marrón medio — texto terciario */
+
+  --color-blanco:         #FFFFFF;
+  --color-borde:          #3D2814;   /* borde sutil */
+  --color-borde-dark:     #5C3D20;   /* borde marcado */
+
+  --color-exito:          #4A7C59;
+  --color-error:          #9B2335;
+
+  /* TIPOGRAFÍA */
+  --fuente-titulo: 'Playfair Display', Georgia, serif;
+  --fuente-texto:  'Lato', system-ui, sans-serif;
+
+  /* TAMAÑOS */
+  --size-xs:   0.75rem;
+  --size-sm:   0.875rem;
+  --size-base: 1rem;
+  --size-md:   1.125rem;
+  --size-lg:   1.25rem;
+  --size-xl:   1.5rem;
+  --size-2xl:  2rem;
+  --size-3xl:  2.5rem;
+  --size-4xl:  3.5rem;
+  --size-5xl:  4.5rem;
+
+  /* ESPACIADO */
+  --espacio-xs:  0.5rem;
+  --espacio-sm:  1rem;
+  --espacio-md:  1.5rem;
+  --espacio-lg:  2rem;
+  --espacio-xl:  3rem;
+  --espacio-2xl: 5rem;
+  --espacio-3xl: 8rem;
+
+  /* RADIO DE BORDE */
+  --radio-sm:   4px;
+  --radio-md:   8px;
+  --radio-lg:   16px;
+  --radio-full: 9999px;
+
+  /* SOMBRAS — más profundas sobre fondo oscuro */
+  --sombra-sm: 0 1px 3px  rgba(0, 0, 0, 0.45);
+  --sombra-md: 0 4px 16px rgba(0, 0, 0, 0.55);
+  --sombra-lg: 0 8px 32px rgba(0, 0, 0, 0.65);
+  --sombra-xl: 0 16px 48px rgba(0, 0, 0, 0.75);
+
+  /* TRANSICIONES */
+  --trans-rapida: 0.15s ease;
+  --trans-normal: 0.3s ease;
+  --trans-lenta:  0.5s ease;
+
+  /* LAYOUT */
+  --ancho-max:      1200px;
+  --ancho-estrecho: 760px;
+  --navbar-alto:    72px;
+}
+
+/* ----------------------------------------------------------------
+   RESET
+   ---------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--fuente-texto);
+  font-size: var(--size-base);
+  line-height: 1.7;
+  color: var(--color-texto);
+  background-color: var(--color-fondo);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ----------------------------------------------------------------
+   TIPOGRAFÍA
+   ---------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--fuente-titulo);
+  line-height: 1.2;
+  color: var(--color-texto);
+}
+
+h1 { font-size: clamp(var(--size-3xl), 6vw, var(--size-5xl)); }
+h2 { font-size: clamp(var(--size-2xl), 4vw, var(--size-4xl)); }
+h3 { font-size: clamp(var(--size-lg),  2.5vw, var(--size-2xl)); }
+h4 { font-size: var(--size-lg); }
+
+p { margin-bottom: var(--espacio-sm); }
+p:last-child { margin-bottom: 0; }
+
+a {
+  color: var(--color-primario-light);
+  text-decoration: none;
+  transition: color var(--trans-rapida);
+}
+a:hover { color: var(--color-tierra); }
+a:focus-visible {
+  outline: 2px solid var(--color-primario);
+  outline-offset: 3px;
+  border-radius: var(--radio-sm);
+}
+
+img, svg { display: block; max-width: 100%; }
+ul, ol   { list-style: none; }
+
+button {
+  font-family: var(--fuente-texto);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, select, textarea {
+  font-family: var(--fuente-texto);
+  font-size: var(--size-base);
+}
+
+/* ----------------------------------------------------------------
+   UTILIDADES
+   ---------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--ancho-max);
+  margin-inline: auto;
+  padding-inline: var(--espacio-md);
+}
+
+.section {
+  padding-block: var(--espacio-3xl);
+}
+
+.section--alt {
+  background-color: var(--color-fondo-alt);
+}
+
+/* Animación reveal — activada por IntersectionObserver en main.js */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal:nth-child(2) { transition-delay: 0.10s; }
+.reveal:nth-child(3) { transition-delay: 0.20s; }
+.reveal:nth-child(4) { transition-delay: 0.30s; }
+.reveal:nth-child(5) { transition-delay: 0.40s; }

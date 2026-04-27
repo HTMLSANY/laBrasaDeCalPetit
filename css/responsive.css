@@ -1,0 +1,123 @@
+/* ================================================================
+   RESPONSIVE.CSS — Media queries mobile-first
+   La Brasa de Cal Petit
+
+   Breakpoints:
+     sm  ≥ 480px
+     md  ≥ 768px
+     lg  ≥ 1024px
+     xl  ≥ 1280px
+   ================================================================ */
+
+/* ----------------------------------------------------------------
+   SM ≥ 480px
+   ---------------------------------------------------------------- */
+@media (min-width: 480px) {
+  .hero__actions {
+    flex-wrap: nowrap;
+  }
+
+  /* En sm la fila de 3 pasa a 2 columnas */
+  .form__row--3 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .nosotros__stats {
+    flex-wrap: nowrap;
+  }
+}
+
+/* ----------------------------------------------------------------
+   MD ≥ 768px
+   ---------------------------------------------------------------- */
+@media (min-width: 768px) {
+  /* Navbar: mostrar nav de escritorio, ocultar hamburguesa */
+  .navbar__nav    { display: flex; }
+  .navbar__toggle { display: none; }
+
+  /* Nosotros: texto | imagen en dos columnas */
+  .nosotros__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--espacio-2xl);
+  }
+
+  /* Contacto: info | mapa en dos columnas */
+  .contacto__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--espacio-2xl);
+  }
+
+  /* Footer: marca | nav | social */
+  .footer__grid {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+
+  /* Footer bottom en una sola línea */
+  .footer__bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  /* Formulario: fila de fecha/hora/personas en 3 columnas */
+  .form__row--3 {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* ----------------------------------------------------------------
+   LG ≥ 1024px
+   ---------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  .navbar__container {
+    padding-inline: var(--espacio-xl);
+  }
+
+  /* Carta: 3 columnas fijas */
+  .carta__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Formulario de reservas más cómodo */
+  .reservas__wrapper {
+    max-width: 680px;
+  }
+}
+
+/* ----------------------------------------------------------------
+   XL ≥ 1280px
+   ---------------------------------------------------------------- */
+@media (min-width: 1280px) {
+  .container {
+    padding-inline: var(--espacio-xl);
+  }
+
+  /* Carta: 4 columnas */
+  .carta__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Nosotros: más espacio para el texto */
+  .nosotros__grid {
+    grid-template-columns: 3fr 2fr;
+  }
+}
+
+/* ----------------------------------------------------------------
+   ACCESIBILIDAD — reducir movimiento
+   ---------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration:        0.01ms !important;
+    animation-iteration-count: 1      !important;
+    transition-duration:       0.01ms !important;
+  }
+
+  /* Mostrar elementos reveal sin animación */
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  html { scroll-behavior: auto; }
+}
