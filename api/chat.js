@@ -128,7 +128,11 @@ export default async function handler(req, res) {
 
     const data = await googleRes.json();
     const rawReply = data.candidates?.[0]?.content?.parts?.[0]?.text ?? "Sin respuesta";
-    const reply = rawReply.replace(/<think>[\s\S]*?<\/think>/gi, "").trim();
+
+    // El modelo incluye razonamiento interno antes de la respuesta final.
+    // La respuesta final siempre es el último bloque de texto no vacío.
+    const parts = rawReply.split("\n").map(l => l.trim()).filter(Boolean);
+    const reply = parts[parts.length - 1] ?? "Sin respuesta";
 
     return res.status(200).json({ reply });
   } catch (err) {
