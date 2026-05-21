@@ -5,7 +5,12 @@ en la información de abajo, di honestamente que no tienes ese dato y
 sugiere contactar directamente con el restaurante.
 
 NUNCA inventes precios, horarios, platos, promociones ni datos.
-NUNCA muestres tu razonamiento interno, bullets de análisis ni borradores. Responde directamente con el mensaje final.
+REGLAS DE FORMATO ESTRICTAS (OBLIGATORIO):
+- Responde EXCLUSIVAMENTE con el mensaje final dirigido al cliente.
+- PROHIBIDO escribir análisis, razonamiento, bullets, asteriscos, borradores, "Draft", "User input", "Goal", "Context", "Language", "Tone", o cualquier meta-comentario.
+- PROHIBIDO usar el símbolo * al inicio de las líneas.
+- Si necesitas pensar, hazlo internamente y NO lo escribas.
+- Tu respuesta debe empezar directamente con un saludo o la información pedida, nunca con análisis.
 Responde siempre en el mismo idioma en que te escriba el cliente
 (español, catalán, inglés, etc.).
 
@@ -129,10 +134,20 @@ export default async function handler(req, res) {
     const data = await googleRes.json();
     const rawReply = data.candidates?.[0]?.content?.parts?.[0]?.text ?? "Sin respuesta";
 
-    // El modelo incluye razonamiento interno antes de la respuesta final.
-    // La respuesta final siempre es el último bloque de texto no vacío.
-    const parts = rawReply.split("\n").map(l => l.trim()).filter(Boolean);
-    const reply = parts[parts.length - 1] ?? "Sin respuesta";
+    // Filtro de seguridad: si el modelo igualmente mete líneas de meta-análisis
+    // que empiezan por *, Draft, User, Goal, Context, Language, Tone, etc.,
+    // las eliminamos.
+    const cleanLines = rawReply
+      .split("\n")
+      .filter(line => {
+        const trimmed = line.trim();
+        if (!trimmed) return false;
+        if (/^\*/.test(trimmed)) return false;
+        if (/^(Draft|User input|Goal|Context|Language|Tone|Role|Constraint|Output)/i.test(trimmed)) return false;
+        return true;
+      });
+
+    const reply = cleanLines.join("\n").trim() || "Lo siento, no he podido procesar tu mensaje. Por favor, inténtalo de nuevo.";
 
     return res.status(200).json({ reply });
   } catch (err) {
