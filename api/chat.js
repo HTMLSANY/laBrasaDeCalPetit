@@ -16,7 +16,7 @@ Responde siempre en el mismo idioma en que te escriba el cliente
 - Ubicación: Carrer d'Usandizaga, 8 · Badalona 08915
 - Horarios: 09:00–21:00
 - Teléfono: +34 601 313 331
-- Email: hola@labrasacalpetit.cat
+- Email: info@labrasacalpetit.cat
 - Redes sociales: @labrasacalpetit
 
 ─── RESERVAS ───
