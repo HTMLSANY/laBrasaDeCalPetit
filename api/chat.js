@@ -88,7 +88,7 @@ export default async function handler(req, res) {
     }
 
     const apiKey = process.env.GOOGLE_API_KEY;
-    const model = "gemma-4-e4b-it";
+    const model = "gemma-4-26b-a4b-it";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
     const contents = [
