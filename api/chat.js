@@ -1,5 +1,3 @@
-import { GoogleGenAI } from "@google/genai";
-
 const INFO_RESTAURANTE = `
 Eres el asistente virtual del restaurante "La Brasa de Cal Petit".
 Responde de forma amable, breve y útil. Si te preguntan algo que NO está
@@ -89,7 +87,9 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Falta el campo 'message'" });
     }
 
-    const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
+    const apiKey = process.env.GOOGLE_API_KEY;
+    const model = "gemma-4-e4b-it";
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
     const contents = [
       ...history.map((m) => ({
@@ -99,19 +99,38 @@ export default async function handler(req, res) {
       { role: "user", parts: [{ text: message }] },
     ];
 
-    const response = await ai.models.generateContent({
-      model: "gemma-4-26b-a4b-it",
+    const body = {
+      system_instruction: {
+        parts: [{ text: INFO_RESTAURANTE }],
+      },
       contents,
-      config: {
-        systemInstruction: INFO_RESTAURANTE,
+      generationConfig: {
         temperature: 0.3,
         maxOutputTokens: 500,
       },
+    };
+
+    const googleRes = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
     });
 
-    return res.status(200).json({ reply: response.text });
+    if (!googleRes.ok) {
+      const errorData = await googleRes.json();
+      console.error("Error de Google API:", JSON.stringify(errorData));
+      return res.status(500).json({
+        error: "Error de Google API",
+        detail: errorData,
+      });
+    }
+
+    const data = await googleRes.json();
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text ?? "Sin respuesta";
+
+    return res.status(200).json({ reply });
   } catch (err) {
-    console.error("Error llamando a Gemma:", err);
+    console.error("Error en handler:", err);
     return res.status(500).json({
       error: "Error procesando la petición",
       detail: err.message,
