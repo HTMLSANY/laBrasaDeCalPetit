@@ -133,6 +133,7 @@ export default async function handler(req, res) {
 
     const data = await googleRes.json();
     const rawReply = data.candidates?.[0]?.content?.parts?.[0]?.text ?? "Sin respuesta";
+    console.log("RAW_REPLY_FROM_GEMMA:", JSON.stringify(rawReply));
 
     // El modelo a veces incluye meta-análisis antes de la respuesta final.
     // Estrategia: dividir en párrafos y quedarnos con el último párrafo
