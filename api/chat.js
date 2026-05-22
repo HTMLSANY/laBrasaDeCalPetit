@@ -134,20 +134,39 @@ export default async function handler(req, res) {
     const data = await googleRes.json();
     const rawReply = data.candidates?.[0]?.content?.parts?.[0]?.text ?? "Sin respuesta";
 
-    // Filtro de seguridad: si el modelo igualmente mete líneas de meta-análisis
-    // que empiezan por *, Draft, User, Goal, Context, Language, Tone, etc.,
-    // las eliminamos.
-    const cleanLines = rawReply
-      .split("\n")
-      .filter(line => {
-        const trimmed = line.trim();
-        if (!trimmed) return false;
-        if (/^\*/.test(trimmed)) return false;
-        if (/^(Draft|User input|Goal|Context|Language|Tone|Role|Constraint|Output)/i.test(trimmed)) return false;
-        return true;
-      });
+    // El modelo a veces incluye meta-análisis antes de la respuesta final.
+    // Estrategia: dividir en párrafos y quedarnos con el último párrafo
+    // que parezca una respuesta dirigida al cliente (no meta-análisis).
 
-    const reply = (cleanLines.join("\n").trim() || "Lo siento, no he podido procesar tu mensaje. Por favor, inténtalo de nuevo.").replace(/^["«"]+|["»"]+$/g, "").trim();
+    const isMetaLine = (line) => {
+      const t = line.trim();
+      if (!t) return true;
+      if (/^[-*•]/.test(t)) return true; // bullets
+      if (/^["'`]/.test(t) && /["'`]$/.test(t)) return true; // líneas entre comillas
+      if (/^(Draft|User input|Goal|Context|Language|Tone|Role|Constraint|Output|Therefore|The information|I must|I will|I can|Actually|Let's|This tells|For a celiac|The question|My response|Note:|Step \d|Analysis|Reasoning|Thought|Response:)/i.test(t)) return true;
+      if (/\binstruction\b/i.test(t) && /\b(strict|follow|says|provided)\b/i.test(t)) return true;
+      return false;
+    };
+
+    // Dividir respuesta en párrafos (separados por línea en blanco o salto)
+    const paragraphs = rawReply
+      .split(/\n+/)
+      .map(p => p.trim())
+      .filter(Boolean);
+
+    // Buscar el último párrafo que NO sea meta-análisis y tenga al menos 10 caracteres
+    let reply = "";
+    for (let i = paragraphs.length - 1; i >= 0; i--) {
+      const p = paragraphs[i];
+      if (!isMetaLine(p) && p.length >= 10) {
+        reply = p;
+        break;
+      }
+    }
+
+    if (!reply) {
+      reply = "Lo siento, no he podido procesar tu mensaje. Por favor, inténtalo de nuevo.";
+    }
 
     return res.status(200).json({ reply });
   } catch (err) {

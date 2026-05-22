@@ -238,6 +238,12 @@
   pointer-events: none;
 }
 
+/* Forzar input del chatbot en blanco (sobrescribe fix de formulario) */
+.chatbot-input,
+#chatbotInput {
+  color: var(--color-texto, #F5EFE0) !important;
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 480px) {
   .chatbot-toggle {
