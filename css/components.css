@@ -277,6 +277,12 @@
   min-height: 1em;
 }
 
+#reservasForm .form__input,
+#reservasForm .form__select,
+#reservasForm .form__textarea {
+  color: var(--color-fondo);
+}
+
 .form__footer {
   display: flex;
   flex-direction: column;
