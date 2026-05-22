@@ -143,7 +143,7 @@
 .plato-card__nombre {
   font-size: var(--size-md);
   font-weight: 600;
-  color: var(--color-texto);
+  color: #3D2817 !important;
   margin-bottom: var(--espacio-xs);
   line-height: 1.3;
 }
