@@ -147,7 +147,7 @@ export default async function handler(req, res) {
         return true;
       });
 
-    const reply = cleanLines.join("\n").trim() || "Lo siento, no he podido procesar tu mensaje. Por favor, inténtalo de nuevo.";
+    const reply = (cleanLines.join("\n").trim() || "Lo siento, no he podido procesar tu mensaje. Por favor, inténtalo de nuevo.").replace(/^["«"]+|["»"]+$/g, "").trim();
 
     return res.status(200).json({ reply });
   } catch (err) {
