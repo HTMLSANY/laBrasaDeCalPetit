@@ -283,6 +283,24 @@
   color: var(--color-fondo);
 }
 
+/* Fix color de texto en inputs del formulario de reservas */
+#reservas input,
+#reservas textarea,
+#reservas select,
+.formulario-reservas input,
+.formulario-reservas textarea,
+.formulario-reservas select,
+form input[type="text"],
+form input[type="tel"],
+form input[type="email"],
+form input[type="date"],
+form input[type="time"],
+form input[type="number"],
+form textarea,
+form select {
+  color: #1A1108 !important;
+}
+
 .form__footer {
   display: flex;
   flex-direction: column;
